@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class UnderstandingStreams {
 
+    // 拆解toList
     @Test
     void collect() throws IOException {
         List<String> emails = MockData.getPeople()
@@ -31,7 +32,7 @@ public class UnderstandingStreams {
                         .stream()
                         .filter(car -> {
                             System.out.println("filter car " + car);
-                            return car.getPrice() < 10000;
+                            return car.getPrice() < 10000; // 邊找到符合條件的資料，就邊往下做了(下兩段的map)，不是獨立的三段
                         })
                         .map(car -> {
                             System.out.println("mapping car " + car);
@@ -41,7 +42,7 @@ public class UnderstandingStreams {
                             System.out.println("mapping price " + price);
                             return price + (price * .14);
                         })
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()) // trigger
         );
     }
 }
