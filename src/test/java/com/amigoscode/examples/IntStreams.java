@@ -16,18 +16,35 @@ public class IntStreams {
         IntStream range = IntStream.rangeClosed(0, 10);
         range.forEach(System.out::println);
 
+        IntStream range1 = IntStream.range(0, 9);
+        range1.forEach(System.out::println);
+
+
+
     }
 
     // Loop through people using IntStream
     @Test
     public void rangeIteratingLists() throws Exception {
         List<Person> people = MockData.getPeople();
-        IntStream.range(0,people.size())
-                .forEach(index -> System.out.println(people.get(index)));
+
+        IntStream.range(0,people.size()).
+                forEach(idx-> System.out.println(people.get(idx)));
+
+
+
+
+//        IntStream.range(0,people.size())
+//                .forEach(index -> System.out.println(people.get(index)));
     }
 
     @Test
     public void intStreamIterate()  {
+
+        IntStream.iterate(0, value -> value+1).limit(10).forEach(System.out::println);
+
+
+
         IntStream.iterate(0,value -> value+1).limit(10).forEach(System.out::println);
     }
 }

@@ -24,16 +24,29 @@ public class TransformationsMapAndReduce {
     void yourFirstTransformationWithMap() throws IOException {
         List<Person> people = MockData.getPeople();
 
-        // Person in, PersonDTO out
-        Function<Person, PersonDTO> personPersonDTOFunction = person -> new PersonDTO(person.getId(), person.getFirstName(), person.getAge());
+        // map -> from one type to another (Person to PersonDTO)
+        Function<Person, PersonDTO> dtoFunction = p -> new PersonDTO(p.getId(), p.getFirstName(), p.getAge());
 
-        List<PersonDTO> personDTOS = people.stream()
-                .filter(person -> person.getAge()>20)
-                .map(personPersonDTOFunction)
-//                .map(PersonDTO::map) // 直接參考 class內的static method
-                .toList();
-//        assertThat(people.size()).isEqualTo(personDTOS.size()); // 程式中的檢查… 沒過，就會斷在這一行
-        personDTOS.forEach(System.out::println);
+        List<PersonDTO> collect = people.stream()
+                .filter(p->p.getAge()>25)
+                .map(dtoFunction)
+                .collect(Collectors.toList());
+
+//        assertThat(people.size()).isEqualTo(collect.size());
+
+        System.out.println(collect);
+
+
+        // Person in, PersonDTO out
+//        Function<Person, PersonDTO> personPersonDTOFunction = person -> new PersonDTO(person.getId(), person.getFirstName(), person.getAge());
+//
+//        List<PersonDTO> personDTOS = people.stream()
+//                .filter(person -> person.getAge()>20)
+//                .map(personPersonDTOFunction)
+////                .map(PersonDTO::map) // 直接參考 class內的static method
+//                .toList();
+////        assertThat(people.size()).isEqualTo(personDTOS.size()); // 程式中的檢查… 沒過，就會斷在這一行
+//        personDTOS.forEach(System.out::println);
     }
 
     // to Double
@@ -41,11 +54,15 @@ public class TransformationsMapAndReduce {
     @Test
     void mapToDoubleAndFindAverageCarPrice() throws IOException {
         List<Car> cars = MockData.getCars();
-        double v = cars.stream()
-                .mapToDouble(Car::getPrice)
-                .average()
-                .orElse(0);
-        System.out.println(v);
+
+        double average = cars.stream().mapToDouble(Car::getPrice).average().orElse(0.0);
+        System.out.println(average);
+
+//        double v = cars.stream()
+//                .mapToDouble(Car::getPrice)
+//                .average()
+//                .orElse(0);
+//        System.out.println(v);
     }
 
     /*
@@ -54,10 +71,15 @@ public class TransformationsMapAndReduce {
     @Test
     public void reduce() {
         int[] integers = {1, 2, 3, 4, 99, 100, 121, 1302, 199};
-        int reduce = Arrays.stream(integers).reduce(0, Integer::sum);
-        int reduce2 = Arrays.stream(integers).reduce(0, (a,b)->a-b);
+
+        int reduce = Arrays.stream(integers).reduce(0, (a, b) -> a - b);
         System.out.println(reduce);
-        System.out.println(reduce2);
+
+
+//        int reduce = Arrays.stream(integers).reduce(0, Integer::sum);
+//        int reduce2 = Arrays.stream(integers).reduce(0, (a,b)->a-b);
+//        System.out.println(reduce);
+//        System.out.println(reduce2);
 
     }
 }

@@ -18,15 +18,21 @@ public class UnderstandingStreams {
                 .stream()
                 .map(Person::getEmail)
                 .collect(
-                        ArrayList::new,
-                        ArrayList::add,
-                        ArrayList::addAll
-                );
+                        ArrayList::new
+                        , ArrayList::add
+                        , (list1, list2) -> list1.addAll(list2));
+
+
         emails.forEach(System.out::println);
     }
 
     @Test
     public void lazy() throws Exception {
+
+        // stream will only run when triggered by collect()
+
+
+
         System.out.println(
                 MockData.getCars()
                         .stream()

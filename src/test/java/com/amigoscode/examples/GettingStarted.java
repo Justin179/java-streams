@@ -32,8 +32,12 @@ public class GettingStarted {
     @Test
     public void declarativeApproachUsingStreams() throws Exception {
         List<Person> people = MockData.getPeople();
-        List<Person> collect = people.stream().filter(p -> p.getAge() <= 18).limit(10).collect(Collectors.toList());
-        System.out.println("declarative: ");
-        collect.forEach(System.out::println);
+        List<Person> adults = people.stream().filter(p -> p.getAge() > 18).limit(10).collect(Collectors.toList());
+
+        adults.forEach(System.out::println);
     }
+
+//    List<Person> collect = people.stream().filter(p -> p.getAge() <= 18).limit(10).collect(Collectors.toList());
+//    System.out.println("declarative: ");
+//    collect.forEach(System.out::println);
 }

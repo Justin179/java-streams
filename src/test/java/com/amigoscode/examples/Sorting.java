@@ -15,21 +15,39 @@ public class Sorting {
     @Test
     public void sortingSteamOfElements() throws IOException {
         List<Person> people = MockData.getPeople();
-        List<String> list = people.stream()
+        List<String> strings = people.stream()
                 .map(Person::getFirstName)
                 .sorted()
-                .collect(Collectors.toList());
-        list.forEach(System.out::println);
+                .toList();
+        strings.forEach(System.out::println);
+
+
+//        List<String> list = people.stream()
+//                .map(Person::getFirstName)
+//                .sorted()
+//                .collect(Collectors.toList());
+//        list.forEach(System.out::println);
     }
 
     @Test
     public void sortingSteamOfElementsReverse() throws IOException {
         List<Person> people = MockData.getPeople();
-        List<String> list = people.stream()
+
+
+        Comparator<String> comparator = Comparator.reverseOrder();
+        List<String> strings = people.stream()
                 .map(Person::getFirstName)
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
-        list.forEach(System.out::println);
+                .sorted(comparator)
+                .toList();
+        strings.forEach(System.out::println);
+
+
+
+//        List<String> list = people.stream()
+//                .map(Person::getFirstName)
+//                .sorted(Comparator.reverseOrder())
+//                .collect(Collectors.toList());
+//        list.forEach(System.out::println);
 
     }
 
@@ -38,14 +56,24 @@ public class Sorting {
         List<Person> people = MockData.getPeople();
 
         Comparator<Person> comparing = Comparator
-                .comparing(Person::getFirstName)
-                .thenComparing(Person::getAge)
+                .comparing(Person::getEmail)
                 .reversed();
 
         List<Person> list = people.stream()
                 .sorted(comparing)
-                .collect(Collectors.toList());
+                .toList();
         list.forEach(System.out::println);
+
+
+//        Comparator<Person> comparing = Comparator
+//                .comparing(Person::getFirstName)
+//                .thenComparing(Person::getAge)
+//                .reversed();
+//
+//        List<Person> list = people.stream()
+//                .sorted(comparing)
+//                .collect(Collectors.toList());
+//        list.forEach(System.out::println);
 
     }
 
@@ -54,10 +82,18 @@ public class Sorting {
         List<Car> cars = MockData.getCars();
         List<Car> carList = cars.stream()
                 .filter(car -> car.getColor().equalsIgnoreCase("blue"))
-                .sorted(Comparator.comparingDouble(Car::getPrice).reversed())
+                .sorted(Comparator.comparing(Car::getPrice).reversed())
                 .limit(10)
-                .collect(Collectors.toList());
+                .toList();
         carList.forEach(System.out::println);
+
+
+//        List<Car> carList = cars.stream()
+//                .filter(car -> car.getColor().equalsIgnoreCase("blue"))
+//                .sorted(Comparator.comparingDouble(Car::getPrice).reversed())
+//                .limit(10)
+//                .collect(Collectors.toList());
+//        carList.forEach(System.out::println);
     }
 
 }

@@ -14,31 +14,46 @@ public class StatisticsWithStreams {
     @Test
     public void count() throws Exception {
         List<Car> cars = MockData.getCars();
-        long count = cars.stream()
-                .filter(car -> car.getMake().equalsIgnoreCase("ford"))
-                .filter(car -> car.getYear()>2010)
+
+        long count = cars.stream().filter(car -> car.getMake().equalsIgnoreCase("ford"))
                 .count();
         System.out.println(count);
+
+//        long count = cars.stream()
+//                .filter(car -> car.getMake().equalsIgnoreCase("ford"))
+//                .filter(car -> car.getYear()>2010)
+//                .count();
+//        System.out.println(count);
     }
 
     @Test
     public void min() throws Exception {
         List<Car> cars = MockData.getCars();
-        double min = cars.stream()
-                .mapToDouble(Car::getPrice)
-                .min()
-                .orElse(0);
+
+        double min = cars.stream().mapToDouble(c -> c.getPrice()).min().orElse(0);
         System.out.println(min);
+
+//        double min = cars.stream()
+//                .mapToDouble(Car::getPrice)
+//                .min()
+//                .orElse(0);
+//        System.out.println(min);
     }
 
     @Test
     public void max() throws Exception {
         List<Car> cars = MockData.getCars();
-        double max = cars.stream()
-                .mapToDouble(Car::getPrice)
+
+        double v = cars.stream()
+                .mapToDouble(c -> c.getPrice())
                 .max()
                 .orElse(0);
-        System.out.println(max);
+        System.out.println(v);
+//        double max = cars.stream()
+//                .mapToDouble(Car::getPrice)
+//                .max()
+//                .orElse(0);
+//        System.out.println(max);
 
     }
 
@@ -46,11 +61,19 @@ public class StatisticsWithStreams {
     @Test
     public void average() throws Exception {
         List<Car> cars = MockData.getCars();
+
         double average = cars.stream()
-                .mapToDouble(Car::getPrice)
+                .mapToDouble(c -> c.getPrice())
                 .average()
                 .orElse(0);
         System.out.println(average);
+
+
+//        double average = cars.stream()
+//                .mapToDouble(Car::getPrice)
+//                .average()
+//                .orElse(0);
+//        System.out.println(average);
 
     }
 
@@ -58,18 +81,30 @@ public class StatisticsWithStreams {
     public void sum() throws Exception {
         List<Car> cars = MockData.getCars();
         double sum = cars.stream()
-                .mapToDouble(Car::getPrice)
+                .mapToDouble(c -> c.getPrice())
                 .sum();
-        System.out.println(BigDecimal.valueOf(sum));
+        System.out.println(sum);
+
+//        double sum = cars.stream()
+//                .mapToDouble(Car::getPrice)
+//                .sum();
+//        System.out.println(BigDecimal.valueOf(sum));
     }
 
     @Test
     public void statistics() throws Exception {
         List<Car> cars = MockData.getCars();
+
         DoubleSummaryStatistics summaryStatistics = cars.stream()
-                .mapToDouble(Car::getPrice)
+                .mapToDouble(c -> c.getPrice())
                 .summaryStatistics();
-        System.out.println(summaryStatistics.getAverage());
+        System.out.println(summaryStatistics);
+
+
+//        DoubleSummaryStatistics summaryStatistics = cars.stream()
+//                .mapToDouble(Car::getPrice)
+//                .summaryStatistics();
+//        System.out.println(summaryStatistics.getAverage());
     }
 
 }

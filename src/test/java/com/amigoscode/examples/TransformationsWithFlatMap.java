@@ -24,37 +24,53 @@ public class TransformationsWithFlatMap {
 
     @Test
     public void withoutFlatMap() throws Exception {
+
+        List<String> list = new ArrayList<>();
+        arrayListOfNames.forEach(list_temp->list.addAll(list_temp));
+        System.out.println(list);
+
         // [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
-        List<String> names = new ArrayList<>();
-        arrayListOfNames.forEach(names::addAll);
+//        List<String> names = new ArrayList<>();
+//        arrayListOfNames.forEach(names::addAll);
 //        for (List<String> list : arrayListOfNames){
 //            for (String str : list){
 //                names.add(str);
 //            }
 //        }
-        System.out.println(names);
+//        System.out.println(names);
     }
 
     @Test
     public void withFlatMap() throws Exception {
-        // [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
-        // List<List<String>> arrayListOfNames
+
         List<String> collect = arrayListOfNames.stream()
                 .flatMap(List::stream)
-                .collect(Collectors.toList());
+                .toList();
         System.out.println(collect);
+
+        // [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
+        // List<List<String>> arrayListOfNames
+//        List<String> collect = arrayListOfNames.stream()
+//                .flatMap(List::stream)
+//                .collect(Collectors.toList());
+//        System.out.println(collect);
     }
 
     @Test
     public void flatMapWithOptionals() {
+
         List<Optional<String>> optionals = List.of(
                 Optional.of("Amigos"),
                 Optional.of("Code")
         );
-        List<String> collect = optionals.stream()
-                .flatMap(Optional::stream)
-                .collect(Collectors.toList());
-        System.out.println(collect);
+
+        List<String> strings = optionals.stream().flatMap(Optional::stream).toList();
+        System.out.println(strings);
+
+//        List<String> collect = optionals.stream()
+//                .flatMap(Optional::stream)
+//                .collect(Collectors.toList());
+//        System.out.println(collect);
     }
 }
 

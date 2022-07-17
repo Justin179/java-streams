@@ -16,7 +16,8 @@ public class WorkingWithStreams {
 
         Stream<String> stream = names.stream();
 
-
+        String [] strings = {};
+        Stream<String> stream1 = Arrays.stream(strings);
 
     }
 }
